@@ -1,0 +1,20 @@
+---
+- name: Обновление пакетов системы, за исключением "excluded_packages"
+  ansible.builtin.package:
+    name: '*'
+    state: latest
+    exclude: "{{ update_os.excluded_packages }}"
+  register: packages_updated
+
+- name: Удаление старых версий ядра
+  ansible.builtin.shell: "dnf remove $(dnf repoquery --installonly --latest-limit=-{{ update_os.kernel_count_on_server }})"
+  when: "'kernel' in packages_updated"
+
+- name: Проверка на необходимость перезагрузки
+  ansible.builtin.stat:
+    path: "{{ update_os.reboot_flag_file_path }}"
+  register: reboot_required
+
+- name: Reboot the server if required
+  ansible.builtin.reboot:
+  when: reboot_required.stat.exists

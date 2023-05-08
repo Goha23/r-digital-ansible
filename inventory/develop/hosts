@@ -1,0 +1,8 @@
+---
+all:
+  children:
+    servers:
+      hosts:
+        localhost:
+          ansible_user: root
+          ansible_ssh_pass: "{{ ssh_password }}"

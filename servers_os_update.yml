@@ -1,0 +1,6 @@
+---
+- name: Обновление пакетов и OS
+  hosts: servers
+  become: yes
+  roles:
+    - role: update_os

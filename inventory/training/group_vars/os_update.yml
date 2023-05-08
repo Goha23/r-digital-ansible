@@ -1,0 +1,4 @@
+update_os:
+  excluded_packages:
+    - ansible
+  kernel_count_on_server: 2

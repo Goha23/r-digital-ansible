@@ -1,0 +1,4 @@
+update_os:
+  excluded_packages:
+  kernel_count_on_server: 2
+  reboot_flag_file_path: /var/run/reboot-required
